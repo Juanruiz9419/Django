@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lista de Tareas</title>
+        <style>
+
+            /*custom font*/
+            @import url(https://fonts.googleapis.com/css?family=Montserrat);
+            body {
+                height: 100%;
+                background:linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+                font-family: 'montserrat', arial, verdana;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                color: #fff;
+            }
+    
+            .container {
+                width: 500px;
+                padding: 20px;
+                background-color: #E59866;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                text-align: center;
+            }
+    
+            h1 {
+                color: #eeeeee;
+                margin-bottom: 20px;
+            }
+    
+            form {
+                margin-bottom: 20px;
+            }
+    
+            input[type="text"] {
+                padding: 10px;
+                width: 80%;
+                box-sizing: border-box;
+                background-color: #ffffff;
+                border: 1px solid #555;
+                color: #000000;
+            }
+    
+            input[type="submit"] {
+                padding: 10px;
+                width: 80%;
+                background-color: #000000;
+                color: #f7f3f3;
+                border: 10px;
+                cursor: pointer;
+                box-sizing: border-box;
+            }
+    
+            input[type="submit"]:hover {
+                background-color: #000000;
+            }
+    
+            div {
+                margin-bottom: 10px;
+                background-color: #424242;
+                padding: 10px;
+                border-radius: 5px;
+            }
+    
+            a {
+                text-decoration: none;
+                color: #fcfcfc;
+                margin-right: 10px;
+            }
+    
+            a:hover {
+                text-decoration: underline;
+            }
+    
+            p {
+                text-decoration: line-through;
+                color: #888;
+            }
+    
+            .elemento {
+                margin-bottom: 10px;
+            }
+    
+            #login {
+                margin-right: 10px;
+            }
+    
+            .btn-registro {
+                text-decoration: none;
+                padding: 10px;
+                background-color: #3498db;
+                color: #fff;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+    
+            .btn-registro:hover {
+                background-color: #2980b9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+
+
+<h3>Bienvenido a la base de datos</h3>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form.title}}
+    <input type = "submit" name="Create task">
+</form>
+
+{% for task in tasks %}
+    <div>
+        <a href="{% url 'update_task' task.id %}">Actualizar</a>
+        <a href="{% url 'delete' task.id %}">Eliminar</a>
+
+        {% if task.complete == True %}
+        <strike>{{task}}</strike>
+        {% else %}
+        <span>{{task}}</span>
+        {% endif %}
+    </div>
+{% endfor %}
